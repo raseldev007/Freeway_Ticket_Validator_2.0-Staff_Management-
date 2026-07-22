@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:shohagh_ticket_validator/main.dart';
+import 'package:freeway_ticket_validator/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
@@ -27,3 +27,4 @@ void main() {
     expect(find.text('1'), findsOneWidget);
   });
 }
+

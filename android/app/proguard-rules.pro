@@ -17,7 +17,7 @@
 -dontwarn com.google.protobuf.**
 
 # Keep models to prevent shrinking of JSON keys if using reflection
--keep class com.shohagh.ticketvalidator.models.** { *; }
+-keep class com.freeway.ticketvalidator.models.** { *; }
 
 # Connectivity Plus
 -keep class dev.fluttercommunity.plus.connectivity.** { *; }

@@ -659,7 +659,7 @@ class _ManageTripScreenState extends State<ManageTripScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFF5F5),
+        color: const Color(0xFFF9FAF9),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppColors.primary.withValues(alpha: 0.05)),
       ),

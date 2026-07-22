@@ -154,7 +154,7 @@ class _StaffProfileScreenState extends State<StaffProfileScreen> {
                 (route) => false,
               );
             },
-            icon: const Icon(Icons.logout_rounded, color: Color(0xFFC62828), size: 22),
+            icon: const Icon(Icons.logout_rounded, color: Color(0xFF2E7D32), size: 22),
           ),
           const SizedBox(width: 15),
         ],
@@ -433,7 +433,7 @@ class _StaffProfileScreenState extends State<StaffProfileScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.cloud_off_rounded, size: 60, color: Color(0xFFE57373)),
+            const Icon(Icons.cloud_off_rounded, size: 60, color: Color(0xFF2E7D32)),
             const SizedBox(height: 20),
             Text(
               'Sync Failed',
@@ -451,7 +451,7 @@ class _StaffProfileScreenState extends State<StaffProfileScreen> {
               icon: const Icon(Icons.refresh_rounded),
               label: const Text('Try Again'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFC62828),
+                backgroundColor: const Color(0xFF2E7D32),
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -468,7 +468,7 @@ class _StaffProfileScreenState extends State<StaffProfileScreen> {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFF6F6),
+        color: const Color(0xFFE6ECE5),
         borderRadius: BorderRadius.circular(26),
       ),
       child: Column(
@@ -645,7 +645,7 @@ class _StaffProfileScreenState extends State<StaffProfileScreen> {
       decoration: BoxDecoration(
         color: isAssigned 
             ? const Color(0xFF4CAF50).withValues(alpha: 0.1) 
-            : const Color(0xFFF44336).withValues(alpha: 0.1),
+            : const Color(0xFF2E7D32).withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Row(
@@ -799,7 +799,7 @@ class _StaffProfileScreenState extends State<StaffProfileScreen> {
                 Container(
                   width: 85,
                   padding: const EdgeInsets.only(bottom: 10),
-                  child: const Icon(Icons.directions_bus_rounded, color: Color(0xFFD32F2F), size: 28),
+                  child: const Icon(Icons.directions_bus_rounded, color: Color(0xFF2E7D32), size: 28),
                 ),
                 Expanded(
                   child: Padding(
@@ -927,7 +927,7 @@ class _StaffProfileScreenState extends State<StaffProfileScreen> {
     return Container(
       width: size,
       height: size,
-      decoration: const BoxDecoration(color: Color(0xFFC62828), shape: BoxShape.circle),
+      decoration: const BoxDecoration(color: Color(0xFF2E7D32), shape: BoxShape.circle),
       alignment: Alignment.center,
       child: Text(
         initial,
@@ -1105,7 +1105,7 @@ class _HoldToConfirmTripState extends State<_HoldToConfirmTrip> with SingleTicke
                 ),
                 if (_controller.value > 0)
                   BoxShadow(
-                    color: const Color(0xFFC62828).withValues(alpha: 0.3 * _controller.value),
+                    color: const Color(0xFF2E7D32).withValues(alpha: 0.3 * _controller.value),
                     blurRadius: 20 * _controller.value,
                     spreadRadius: 4 * _controller.value,
                   ),
@@ -1133,14 +1133,14 @@ class _HoldToConfirmTripState extends State<_HoldToConfirmTrip> with SingleTicke
                               children: [
                                 const Icon(
                                   Icons.touch_app_rounded,
-                                  color: Color(0xFFC62828),
+                                  color: Color(0xFF2E7D32),
                                   size: 32,
                                 ).animate().scale(duration: 400.ms, curve: Curves.easeOutBack),
                                 const SizedBox(height: 8),
                                 Text(
                                   'OPENING TRIP',
                                   style: GoogleFonts.inter(
-                                    color: const Color(0xFFC62828),
+                                    color: const Color(0xFF2E7D32),
                                     fontWeight: FontWeight.w900,
                                     fontSize: 16,
                                     letterSpacing: 1.5,
@@ -1160,7 +1160,7 @@ class _HoldToConfirmTripState extends State<_HoldToConfirmTrip> with SingleTicke
                       child: LinearProgressIndicator(
                         value: _controller.value,
                         backgroundColor: Colors.black12,
-                        valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFFC62828)),
+                        valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF2E7D32)),
                         minHeight: 8,
                       ),
                     ),

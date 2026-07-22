@@ -4,10 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:shohagh_ticket_validator/core/providers/trip_provider.dart';
-import 'package:shohagh_ticket_validator/core/constants/app_colors.dart';
-import 'package:shohagh_ticket_validator/features/verification/screens/verification_success_screen.dart';
-import 'package:shohagh_ticket_validator/core/widgets/otp_pin_field.dart';
+import 'package:freeway_ticket_validator/core/providers/trip_provider.dart';
+import 'package:freeway_ticket_validator/core/constants/app_colors.dart';
+import 'package:freeway_ticket_validator/features/verification/screens/verification_success_screen.dart';
+import 'package:freeway_ticket_validator/core/widgets/otp_pin_field.dart';
 
 class ManualVerificationScreen extends StatefulWidget {
   final String? initialPnr;
@@ -651,5 +651,6 @@ class _ManualVerificationScreenState extends State<ManualVerificationScreen> {
     );
   }
 }
+
 
 

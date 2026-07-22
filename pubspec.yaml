@@ -1,4 +1,4 @@
-name: shohagh_ticket_validator
+name: freeway_ticket_validator
 description: "Internal ticket validation app for Shohagh Paribahan staff."
 publish_to: 'none'
 

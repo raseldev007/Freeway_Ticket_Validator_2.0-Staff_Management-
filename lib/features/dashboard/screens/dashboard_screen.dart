@@ -156,7 +156,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           child: Container(
                             padding: const EdgeInsets.all(18),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFFFF5F5),
+                              color: const Color(0xFFE6ECE5),
                               borderRadius: BorderRadius.circular(24),
                               border: Border.all(color: AppColors.primary.withValues(alpha: 0.05), width: 1),
                             ),
@@ -754,7 +754,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             }
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFFFF1F1),
+            backgroundColor: const Color(0xFFE6ECE5),
             foregroundColor: AppColors.primary,
             elevation: 0,
             side: BorderSide(color: AppColors.primary.withValues(alpha: 0.2), width: 1.5),

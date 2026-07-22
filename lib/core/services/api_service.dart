@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
-import 'package:shohagh_ticket_validator/core/models/models.dart';
+import 'package:freeway_ticket_validator/core/models/models.dart';
 
 class ApiService {
   static SharedPreferences? _prefs;
@@ -911,3 +911,4 @@ class ApiService {
                     'already_boarded'));
   }
 }
+

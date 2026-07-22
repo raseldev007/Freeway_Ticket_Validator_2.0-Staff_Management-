@@ -9,10 +9,10 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:shohagh_ticket_validator/core/widgets/otp_pin_field.dart';
-import 'package:shohagh_ticket_validator/core/providers/trip_provider.dart';
-import 'package:shohagh_ticket_validator/core/constants/app_colors.dart';
-import 'package:shohagh_ticket_validator/features/dashboard/screens/staff_profile_screen.dart';
+import 'package:freeway_ticket_validator/core/widgets/otp_pin_field.dart';
+import 'package:freeway_ticket_validator/core/providers/trip_provider.dart';
+import 'package:freeway_ticket_validator/core/constants/app_colors.dart';
+import 'package:freeway_ticket_validator/features/dashboard/screens/staff_profile_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -510,3 +510,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
