@@ -155,6 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
           _otpController.text,
         );
     if (success) {
+      if (!mounted) return;
       FocusScope.of(context).unfocus();
       HapticFeedback.lightImpact();
       if (mounted) {
@@ -434,8 +435,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             Text(
                               _canResend
-                                  ? "Didn't receive OTP? "
-                                  : "OTP expires in ",
+                                  ? 'Didn\'t receive OTP? '
+                                  : 'OTP expires in ',
                               style: GoogleFonts.inter(
                                 color: AppColors.textSecondary,
                                 fontSize: 14,
@@ -462,7 +463,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       MaterialTapTargetSize.shrinkWrap,
                                 ),
                                 child: Text(
-                                  "Resend Now",
+                                  'Resend Now',
                                   style: GoogleFonts.inter(
                                     color: AppColors.primary,
                                     fontWeight: FontWeight.w800,

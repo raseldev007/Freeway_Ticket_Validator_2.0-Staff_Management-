@@ -148,10 +148,10 @@ class _ManualVerificationScreenState extends State<ManualVerificationScreen> {
       HapticFeedback.vibrate();
       final error = provider.errorMessage ?? 'Failed to resend PIN';
 
-      if (error == "PNR & Trip Mismatch") {
+      if (error == 'PNR & Trip Mismatch') {
         _showResultDialog(false,
             message:
-                "PNR & Trip Mismatch! This PNR does not belong to the selected Trip.");
+                'PNR & Trip Mismatch! This PNR does not belong to the selected Trip.');
       } else {
         _showSnack(error, AppColors.error);
       }

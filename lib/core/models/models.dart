@@ -23,14 +23,10 @@ enum SeatTypeStatus {
 class AppPermissions {
   static const String verifyBoarding = 'TICKET_VALIDATOR_VERIFY_BOARDING';
   static const String tripManagement = 'TICKET_VALIDATOR_TRIP_MANAGEMENT';
-  static const String approval = 'TICKET_VALIDATOR_APPROVAL';
-  static const String reconcile = 'TICKET_VALIDATOR_RECONCILE';
 
   static const List<String> all = [
     verifyBoarding,
     tripManagement,
-    approval,
-    reconcile,
   ];
 }
 
@@ -550,8 +546,12 @@ class User {
   // Centralized Permission Policy Getters
   bool get canVerifyBoarding => hasPermission(AppPermissions.verifyBoarding);
   bool get canManageTrip => hasPermission(AppPermissions.tripManagement);
-  bool get canApprove => hasPermission(AppPermissions.approval);
-  bool get canReconcile => hasPermission(AppPermissions.reconcile);
+
+  String get designation {
+    if (canManageTrip) return 'ROAMING OFFICER';
+    if (canVerifyBoarding) return 'PASSENGER GUIDE';
+    return role ?? 'STAFF';
+  }
 
   factory User.fromJson(Map<String, dynamic> json) {
     final Map<String, dynamic> data = (json['user'] is Map)
@@ -565,7 +565,7 @@ class User {
       }
     }
 
-    // Try to extract the single permission as per contract
+    // extractng the single permission
     String? contractPermission;
     if (data['permission'] != null) {
       contractPermission = data['permission'].toString();

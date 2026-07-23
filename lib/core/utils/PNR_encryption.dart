@@ -42,6 +42,7 @@ class Encryption {
         return decrypted;
       }
     } catch (e) {
+      // Ignore decryption errors for failed attempts
     }
     return null;
   }

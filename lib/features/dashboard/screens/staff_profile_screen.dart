@@ -205,8 +205,8 @@ class _StaffProfileScreenState extends State<StaffProfileScreen> {
             if (_searchQuery.isEmpty) return true;
             final query = _searchQuery.toLowerCase().trim();
             final coach = (trip.coachCode ?? '').toLowerCase();
-            final from = (trip.fromStation ?? '').toLowerCase();
-            final to = (trip.toStation ?? '').toLowerCase();
+            final from = trip.fromStation.toLowerCase();
+            final to = trip.toStation.toLowerCase();
             
             return coach.contains(query) || 
                    from.contains(query) || 
@@ -399,7 +399,7 @@ class _StaffProfileScreenState extends State<StaffProfileScreen> {
                   SliverPadding(
                     padding: const EdgeInsets.fromLTRB(18, 0, 18, 0),
                     sliver: SliverList(
-                      key: ValueKey('trip_list_${_selectedFilter}'),
+                      key: ValueKey('trip_list_$_selectedFilter'),
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
                           final trip = trips[index];
@@ -540,7 +540,7 @@ class _StaffProfileScreenState extends State<StaffProfileScreen> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         (user?.username != null && user!.username.isNotEmpty)
-                            ? '${user.username.toLowerCase()}'
+                            ? user.username.toLowerCase()
                             : '',
                         style: GoogleFonts.inter(
                           color: Colors.grey[600],
@@ -557,20 +557,24 @@ class _StaffProfileScreenState extends State<StaffProfileScreen> {
           const SizedBox(height: 14),
           const Divider(height: 1, color: Color(0xFFFFEBEE)),
           const SizedBox(height: 12),
-          Row(
-            children: [
-              _buildCompactBadge(
-                icon: Icons.badge_rounded,
-                label: 'EMP-ID: ${user?.erpId ?? "N/A"}',
-                color: AppColors.primary,
-              ),
-              const SizedBox(width: 12),
-              _buildCompactBadge(
-                icon: Icons.person,
-                label: user?.role ?? "N/A",
-                color: AppColors.primary,
-              ),
-            ],
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Row(
+              children: [
+                _buildCompactBadge(
+                  icon: Icons.badge_rounded,
+                  label: 'EMP-ID: ${user?.erpId ?? 'N/A'}',
+                  color: AppColors.primary,
+                ),
+                const SizedBox(width: 12),
+                _buildCompactBadge(
+                  icon: Icons.person,
+                  label: user?.designation ?? 'N/A',
+                  color: AppColors.primary,
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -673,35 +677,28 @@ class _StaffProfileScreenState extends State<StaffProfileScreen> {
   }
 
   Widget _buildCompactBadge({required IconData icon, required String label, required Color color}) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.6),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.black.withValues(alpha: 0.05)),
-        ),
-        child: Row(
-          children: [
-            Icon(icon, size: 14, color: color),
-            const SizedBox(width: 8),
-            Expanded(
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  label.toUpperCase(),
-                  style: GoogleFonts.inter(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black87,
-                    letterSpacing: 0.2,
-                  ),
-                ),
-              ),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.6),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.black.withValues(alpha: 0.05)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 14, color: color),
+          const SizedBox(width: 8),
+          Text(
+            label.toUpperCase(),
+            style: GoogleFonts.inter(
+              fontSize: 10,
+              fontWeight: FontWeight.w800,
+              color: Colors.black87,
+              letterSpacing: 0.1,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

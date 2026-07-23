@@ -8,9 +8,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'core/theme/app_theme.dart';
-import 'core/providers/trip_provider.dart';
-import 'core/providers/connectivity_Notifier.dart';
+import 'package:freeway_ticket_validator/core/theme/app_theme.dart';
+import 'package:freeway_ticket_validator/core/constants/app_colors.dart';
+import 'package:freeway_ticket_validator/core/providers/trip_provider.dart';
+import 'core/providers/connectivity_notifier.dart';
 import 'features/auth/screens/login_screen.dart';
 import 'features/dashboard/screens/staff_profile_screen.dart';
 import 'core/services/notification_service.dart';
@@ -109,89 +110,101 @@ class TicketValidatorApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: navigatorKey,
-      locale: DevicePreview.locale(context),
-      title: 'Freeway Ticket Validator 2.0',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
-      home: const AuthWrapper(),
-      builder: (context, child) {
-        child = DevicePreview.appBuilder(context, child);
+    return Consumer<TripProvider>(
+      builder: (context, provider, child) {
+        final user = provider.currentUser;
+        // Check if the user is a Passenger Guide (only has boarding permission, not management)
+        final isPassengerGuide = user != null && user.canVerifyBoarding && !user.canManageTrip;
 
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(
-            textScaler: const TextScaler.linear(1.0),
-          ),
-          child: Stack(
-            children: [
-              child,
-              Consumer<ConnectivityProvider>(
-                builder: (context, connectivity, _) {
-                  if (connectivity.isOnline && !connectivity.showRestored) return const SizedBox.shrink();
+        return MaterialApp(
+          navigatorKey: navigatorKey,
+          locale: DevicePreview.locale(context),
+          title: 'Freeway Ticket Validator 2.0',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.getTheme(isPassengerGuide: isPassengerGuide),
+          darkTheme: AppTheme.getTheme(isPassengerGuide: isPassengerGuide).copyWith(brightness: Brightness.dark),
+          themeMode: ThemeMode.system,
+          home: const AuthWrapper(),
+          builder: (context, child) {
+            child = DevicePreview.appBuilder(context, child);
 
-                  final bool isOnline = connectivity.isOnline;
-                  final Color baseColor = isOnline ? const Color(0xFF2E7D32) : const Color(0xFFC62828);
-                  final Color bgColor = isOnline ? const Color(0xFFE8F5E9) : const Color(0xFFFFF2F2);
-
-                  return Positioned(
-                    bottom: MediaQuery.of(context).padding.bottom + 20,
-                    left: 20,
-                    right: 20,
-                    child: Material(
-                      color: Colors.transparent,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        decoration: BoxDecoration(
-                          color: bgColor,
-                          borderRadius: BorderRadius.circular(22),
-                          border: Border.all(color: baseColor.withValues(alpha: 0.1)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.1),
-                              blurRadius: 15,
-                              offset: const Offset(0, 8),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              isOnline ? Icons.wifi_rounded : Icons.wifi_off_rounded,
-                              color: baseColor,
-                              size: 20,
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Text(
-                                isOnline ? 'Back Online' : 'No Internet Connection',
-                                style: TextStyle(
-                                  color: baseColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ),
-                            if (!isOnline)
-                              SizedBox(
-                                width: 16,
-                                height: 16,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor: AlwaysStoppedAnimation<Color>(baseColor.withValues(alpha: 0.5)),
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
+            return MediaQuery(
+              data: MediaQuery.of(context).copyWith(
+                textScaler: const TextScaler.linear(1.0),
               ),
-            ],
-          ),
+              child: Stack(
+                children: [
+                  child,
+                  Consumer<ConnectivityProvider>(
+                    builder: (context, connectivity, _) {
+                      if (connectivity.isOnline && !connectivity.showRestored) return const SizedBox.shrink();
+
+                      final bool isOnline = connectivity.isOnline;
+                      final Color baseColor = isOnline
+                          ? (isPassengerGuide ? AppColors.pgPrimary : AppColors.roPrimary)
+                          : const Color(0xFFC62828);
+                      final Color bgColor = isOnline
+                          ? (isPassengerGuide ? AppColors.pgPrimaryContainer : AppColors.roPrimaryContainer)
+                          : const Color(0xFFFFF2F2);
+
+                      return Positioned(
+                        bottom: MediaQuery.of(context).padding.bottom + 20,
+                        left: 20,
+                        right: 20,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                            decoration: BoxDecoration(
+                              color: bgColor,
+                              borderRadius: BorderRadius.circular(22),
+                              border: Border.all(color: baseColor.withValues(alpha: 0.1)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.1),
+                                  blurRadius: 15,
+                                  offset: const Offset(0, 8),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  isOnline ? Icons.wifi_rounded : Icons.wifi_off_rounded,
+                                  color: baseColor,
+                                  size: 20,
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Text(
+                                    isOnline ? 'Back Online' : 'No Internet Connection',
+                                    style: TextStyle(
+                                      color: baseColor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                                if (!isOnline)
+                                  SizedBox(
+                                    width: 16,
+                                    height: 16,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      valueColor: AlwaysStoppedAnimation<Color>(baseColor.withValues(alpha: 0.5)),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
         );
       },
     );

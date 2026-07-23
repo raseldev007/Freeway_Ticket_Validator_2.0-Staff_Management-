@@ -94,7 +94,7 @@ class ReservationDetailsScreen extends StatelessWidget {
                   height: 40.w,
                   width: 40.w,
                   decoration: BoxDecoration(
-                    border: Border.all(color: primaryRed.withOpacity(0.2)),
+                    border: Border.all(color: primaryRed.withValues(alpha: 0.2)),
                     borderRadius: BorderRadius.circular(10.r),
                   ),
                   child: Icon(
@@ -115,9 +115,9 @@ class ReservationDetailsScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(20.w),
               decoration: BoxDecoration(
-                color: lightRedBg.withOpacity(0.5),
+                color: lightRedBg.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(24.r),
-                border: Border.all(color: primaryRed.withOpacity(0.05)),
+                border: Border.all(color: primaryRed.withValues(alpha: 0.05)),
               ),
               child: Row(
                 children: [
@@ -140,7 +140,7 @@ class ReservationDetailsScreen extends StatelessWidget {
                           children: [
                             Expanded(
                               child: Text(
-                                "PNR : $pnr",
+                                'PNR : $pnr',
                                 style: GoogleFonts.inter(
                                   color: primaryRed,
                                   fontSize: 18.sp,
@@ -155,7 +155,7 @@ class ReservationDetailsScreen extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          "Trip ID: $tripId",
+                          'Trip ID: $tripId',
                           style: GoogleFonts.inter(
                             color: Colors.black45,
                             fontSize: 14.sp,
@@ -191,7 +191,7 @@ class ReservationDetailsScreen extends StatelessWidget {
                               color: primaryRed, size: 26.sp),
                           SizedBox(height: 8.h),
                           Text(
-                            "PASSENGER",
+                            'PASSENGER',
                             style: GoogleFonts.inter(
                               fontSize: 11.sp,
                               fontWeight: FontWeight.w700,
@@ -220,7 +220,7 @@ class ReservationDetailsScreen extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 12.w),
                       width: 1.2.w,
-                      color: Colors.black.withOpacity(0.2),
+                      color: Colors.black.withValues(alpha: 0.2),
                     ),
 
                     Expanded(
@@ -232,7 +232,7 @@ class ReservationDetailsScreen extends StatelessWidget {
                               color: primaryRed, size: 26.sp),
                           SizedBox(height: 8.h),
                           Text(
-                            "SEAT",
+                            'SEAT',
                             style: GoogleFonts.inter(
                               fontSize: 11.sp,
                               fontWeight: FontWeight.w700,

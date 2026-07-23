@@ -6,13 +6,16 @@ import 'transitions.dart';
 class AppTheme {
   static const double _radius = 12.0;
 
-  static ThemeData get lightTheme {
+  static ThemeData getTheme({bool isPassengerGuide = false}) {
+    final Color primaryColor = isPassengerGuide ? AppColors.pgPrimary : AppColors.roPrimary;
+    final Color accentColor = isPassengerGuide ? AppColors.pgAccent : AppColors.roAccent;
+
     return ThemeData(
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
-        seedColor: AppColors.primary,
-        primary: AppColors.primary,
-        secondary: AppColors.accent,
+        seedColor: primaryColor,
+        primary: primaryColor,
+        secondary: accentColor,
         surface: AppColors.surface,
         error: AppColors.error,
       ),
@@ -44,7 +47,7 @@ class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(_radius),
-          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+          borderSide: BorderSide(color: primaryColor, width: 1.5),
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
@@ -53,7 +56,7 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
+          backgroundColor: primaryColor,
           foregroundColor: Colors.white,
           minimumSize: const Size(double.infinity, 56),
           shape: RoundedRectangleBorder(
@@ -73,23 +76,7 @@ class AppTheme {
     );
   }
 
-  static ThemeData get darkTheme {
-    return ThemeData(
-      useMaterial3: true,
-      brightness: Brightness.dark,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: AppColors.primary,
-        brightness: Brightness.dark,
-      ),
-      textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme),
-      pageTransitionsTheme: const PageTransitionsTheme(
-        builders: {
-          TargetPlatform.android: AppPageTransitionsBuilder(),
-          TargetPlatform.iOS: AppPageTransitionsBuilder(),
-          TargetPlatform.windows: AppPageTransitionsBuilder(),
-          TargetPlatform.macOS: AppPageTransitionsBuilder(),
-        },
-      ),
-    );
-  }
+  // Keeping legacy getters for stability during transition, defaulting to Roaming Officer (Green)
+  static ThemeData get lightTheme => getTheme(isPassengerGuide: false);
+  static ThemeData get darkTheme => getTheme(isPassengerGuide: false).copyWith(brightness: Brightness.dark);
 }

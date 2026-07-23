@@ -29,7 +29,6 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   Timer? _refreshTimer;
-  bool _isInitialLoading = true;
 
   @override
   void initState() {
@@ -218,13 +217,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         alignment: Alignment.centerLeft,
                                         child: Row(
                                           children: [
-                                            const Icon(Icons.person_outline_rounded, size: 13, color: AppColors.textSecondary),
                                             const SizedBox(width: 4),
                                             Text(
-                                              'EMP-ID: ${user?.erpId ?? "N/A"}',
+                                              user?.designation ?? 'STAFF',
                                               style: GoogleFonts.inter(
                                                 color: AppColors.textSecondary,
-                                                fontSize: 13,
+                                                fontSize: 10,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                             ),

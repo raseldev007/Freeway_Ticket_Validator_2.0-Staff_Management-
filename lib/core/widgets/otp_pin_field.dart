@@ -79,7 +79,7 @@ class _OtpPinFieldState extends State<OtpPinField> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(widget.length, (index) {
-              String char = "";
+              String char = '';
               if (index < text.length) {
                 char = text[index];
               }
@@ -105,7 +105,7 @@ class _OtpPinFieldState extends State<OtpPinField> {
                 ),
                 child: Center(
                   child: Text(
-                    char.isEmpty ? "" : (widget.isObscure ? "●" : char),
+                    char.isEmpty ? '' : (widget.isObscure ? '●' : char),
                     style: GoogleFonts.inter(
                       fontSize: 22,
                       fontWeight: FontWeight.w700,
@@ -172,7 +172,7 @@ class _OtpPinFieldState extends State<OtpPinField> {
                     border: InputBorder.none,
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
-                    counterText: "",
+                    counterText: '',
                     fillColor: Colors.transparent,
                     filled: true,
                   ),

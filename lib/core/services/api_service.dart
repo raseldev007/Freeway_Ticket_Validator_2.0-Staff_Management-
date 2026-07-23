@@ -353,7 +353,11 @@ class ApiService {
         if (item is Map) {
           try {
             tickets.add(Ticket.fromJson(Map<String, dynamic>.from(item)));
-          } catch (_) {}
+          } catch (e) {
+            if (kDebugMode) {
+              debugPrint('Ticket Parsing Error: $e for item: $item');
+            }
+          }
         }
       }
 
@@ -474,33 +478,6 @@ class ApiService {
     }
   }
 
-  void _printDataCleanly(dynamic data, [String prefix = '']) {
-    if (!kDebugMode || data == null) return;
-    
-    // Safety check for recursive or massive lists
-
-    if (data is List && data.length > 50) {
-      debugPrint('$prefix: [Large List with ${data.length} items - Skipping detailed print]');
-      return;
-    }
-
-    if (data is Map) {
-      if (data.length > 50) {
-         debugPrint('$prefix: [Large Map with ${data.length} keys - Skipping detailed print]');
-         return;
-      }
-      data.forEach((key, value) {
-        _printDataCleanly(value, prefix.isEmpty ? key.toString() : '$prefix $key');
-      });
-    } else if (data is List) {
-      for (int i = 0; i < data.length; i++) {
-        _printDataCleanly(data[i], '$prefix $i');
-      }
-    } else {
-      debugPrint('$prefix: ${data.toString()}');
-    }
-  }
-
   void _logApiCall({
     required http.Response response,
     required DateTime startTime,
@@ -551,27 +528,6 @@ class ApiService {
     debugPrint('LOG END');
   }
 
-  String _serializeModels(dynamic models) {
-    try {
-      const encoder = JsonEncoder.withIndent('  ');
-      if (models is List) {
-        return encoder.convert(models.map((m) => _modelToMap(m)).toList());
-      }
-      return encoder.convert(_modelToMap(models));
-    } catch (e) {
-      return models.toString();
-    }
-  }
-
-  dynamic _modelToMap(dynamic model) {
-    try {
-      return (model as dynamic).toJson();
-    } catch (_) {
-      return model.toString();
-    }
-  }
-
-
   List<Trip> _parseTrips(dynamic decoded, {String label = 'Trips'}) {
     List<dynamic> dataList = [];
     if (decoded is List) {
@@ -587,12 +543,10 @@ class ApiService {
       if (item is Map) {
         try {
           trips.add(Trip.fromJson(Map<String, dynamic>.from(item)));
-        } catch (_) {
-
-
-          // Individual parsing errors shouldn't crash the app
-
-
+        } catch (e) {
+          if (kDebugMode) {
+            debugPrint('Trip Parsing Error: $e for item: $item');
+          }
         }
       }
     }

@@ -227,7 +227,7 @@ class _PassengerListScreenState extends State<PassengerListScreen> {
           Icon(Icons.filter_list_off, size: 48, color: Colors.grey[300]),
           const SizedBox(height: 16),
           Text(
-            "No $_filterStatus passengers",
+            'No $_filterStatus passengers',
             style: GoogleFonts.inter(
               fontSize: 16,
               color: Colors.grey[500],

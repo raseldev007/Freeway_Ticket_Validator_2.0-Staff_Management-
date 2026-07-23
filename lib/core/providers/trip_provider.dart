@@ -93,8 +93,6 @@ class TripProvider with ChangeNotifier {
       //  Use getTripList for Staff Profile trips
       final trips = await _apiService.getTripList();
       
-      _log('API Response for trips', trips);
-      
       _staffTrips = trips;
       _log('Staff trips updated. Count: ${_staffTrips.length}');
 
@@ -175,47 +173,35 @@ class TripProvider with ChangeNotifier {
       _log('Authentication Raw Response', authData);
 
       User? userFromAuth;
-      if (authData != null) {
-        _log('Attempting to parse user from authentication data');
-        userFromAuth = User.fromJson(authData);
-        _log('Parsed User from Auth', userFromAuth.toJson());
-      }
+      _log('Attempting to parse user from authentication data');
+      userFromAuth = User.fromJson(authData);
 
-      if (userFromAuth != null) {
-        _log('Setting current user for permission check');
-        _currentUser = userFromAuth;
-        if (!hasAnyAccess) {
-          _log('User lacks required permissions', {'verify': canVerify, 'manage': canManage});
-          _currentUser = null;
-          _log('Login failed Unauthorized permission');
-          throw Exception('Unauthorized: You do not have permission to access the Ticket Validator system.');
-        }
+      _log('Setting current user for permission check');
+      _currentUser = userFromAuth;
+      if (!hasAnyAccess) {
+        _log('User lacks required permissions', {'verify': canVerify, 'manage': canManage});
+        _currentUser = null;
+        _log('Login failed Unauthorized permission');
+        throw Exception('Unauthorized: You do not have permission to access the Ticket Validator system.');
       }
 
       try {
-        final profileUser = await _apiService.getUserProfile();
-        if (profileUser != null) {
-          _log('Raw Profile Data Received', profileUser.toJson());
-          _currentUser = profileUser.mergeWith(userFromAuth);
-          _log('User profile synced and merged UserID ${_currentUser?.id}');
-        }
+      final profileUser = await _apiService.getUserProfile();
+      if (profileUser != null) {
+        _log('Raw Profile Data Received', profileUser.toJson());
+        _currentUser = profileUser.mergeWith(userFromAuth);
+        _log('User profile synced and merged UserID ${_currentUser?.id}');
+      }
       } catch (e) {
         _log('Profile sync error $e');
-        if (userFromAuth != null) {
-          _currentUser = userFromAuth;
-        } else {
-          throw Exception('Profile synchronization failed.');
-        }
+        _currentUser = userFromAuth;
       }
 
-      if (_currentUser != null) {
-        _log('Final Merged User Data', _currentUser!.toJson());
-        _log('User ERP ID ${_currentUser?.erpId}');
-        await _apiService.saveUser(_currentUser!);
-        _log('Login successful');
-        return true;
-      }
-      return false;
+      _log('Final Merged User Data', _currentUser!.toJson());
+      _log('User ERP ID ${_currentUser?.erpId}');
+      await _apiService.saveUser(_currentUser!);
+      _log('Login successful');
+      return true;
     } catch (e) {
       _errorMessage = _apiService.parseError(e);
       _log('Login failed: $_errorMessage');
